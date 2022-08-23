@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import Input from "./components/input/Input";
+import Todos from "./components/todos/Todos";
 
 function App() {
+  const [todos, setTodos] = useState(["test", "test1", "test2"]);
+
+  useEffect(() => {
+    console.log("money recived");
+  }, [todos]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Input setTodos={setTodos} todos={todos} />
+      <Todos todos={todos} />
     </div>
   );
 }
