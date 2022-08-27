@@ -1,19 +1,36 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import Input from "./components/input/Input";
-import Todos from "./components/todos/Todos";
+import InputWrapper from "./components/inputWrapper/InputWrapper";
+import TodoList from "./components/todoList/TodoList";
 
 function App() {
-  const [todos, setTodos] = useState(["test", "test1", "test2"]);
-
-  useEffect(() => {
-    console.log("money recived");
-  }, [todos]);
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      name: "test",
+    },
+    {
+      id: 2,
+      name: "test2",
+    },
+    {
+      id: 3,
+      name: "test1",
+    },
+    {
+      id: 4,
+      name: "test2",
+    },
+    {
+      id: 5,
+      name: "test3",
+    },
+  ]);
 
   return (
     <div className="App">
-      <Input setTodos={setTodos} todos={todos} />
-      <Todos todos={todos} />
+      <InputWrapper setTodos={setTodos} todos={todos} />
+      <TodoList setTodos={setTodos} todos={todos} />
     </div>
   );
 }

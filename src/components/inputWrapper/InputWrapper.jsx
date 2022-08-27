@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-import "./Input.css";
+import "./InputWrapper.css";
 
-const Input = (props) => {
+const InputWrapper = ({ setTodos, todos }) => {
   const [todoInput, setTodoInput] = useState("");
 
   const addTodo = () => {
-    console.log("from parent", props.todos);
-
-    let existingTodos = props.todos;
-
+    let existingTodos = todos;
     existingTodos.push(todoInput);
-
-    console.log("added by son", existingTodos);
-
-    props.setTodos(existingTodos);
+    // console.log(existingTodos, "existingTodos");
+    setTodos(["test", "test1", "test2", "new"]);
+    // setTodos((preState) => [{ ...preState, todoInput }]);
   };
 
   return (
@@ -33,8 +29,16 @@ const Input = (props) => {
       >
         Add Todo
       </button>
+      {/* 
+      <button
+        onClick={() => {
+          setTest("update");
+        }}
+      >
+        test
+      </button> */}
     </div>
   );
 };
 
-export default Input;
+export default InputWrapper;
