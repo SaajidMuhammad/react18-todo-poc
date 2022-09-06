@@ -1,34 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import "./TodoList.css";
 
 const TodosList = ({ todos, setTodos }) => {
-  const deleteTodo = (index) => {
-    todos.splice(index, 1);
+  const [selectedEdit, setSelectedEdit] = useState(-1);
+  const [updatingInput, setUpdatingInput] = useState("");
 
-    setTodos(todos);
+  const deleteTodo = (id) => {
+    setTodos((preState) => {
+      return preState.filter((pre) => pre.id !== id);
+    });
+  };
 
-    // console.log(todos, "todos list after remove");
+  const editClicked = (todo) => {
+    setSelectedEdit(todo?.id);
+    setUpdatingInput(todo?.name);
+  };
+
+  const updateTodo = () => {
+    setTodos((preState) => {
+      return preState.map((pre) => {
+        if (pre.id === selectedEdit) {
+          let updatedTodo = {
+            id: pre.id,
+            name: updatingInput,
+          };
+
+          return updatedTodo;
+        }
+        return pre;
+      });
+    });
+
+    setSelectedEdit(-1);
   };
 
   return (
     <div className="todo-wrapper">
-      {todos?.map((todo, index) => {
-        return (
-          <div className="single-todo" key={todo?.id}>
-            <div className="checkbox-wrapper">
-              <input type="checkbox" />
-              <div>{todo?.name}</div>
-            </div>
+      {todos.length > 0 ? (
+        todos?.map((todo) => {
+          return (
+            <div className="single-todo" key={todo?.id}>
+              <div className="checkbox-wrapper">
+                {todo?.id === selectedEdit ? (
+                  <input
+                    defaultValue={todo?.name}
+                    onChange={(e) => {
+                      setUpdatingInput(e.target.value);
+                    }}
+                  />
+                ) : (
+                  <div>{todo?.name}</div>
+                )}
+              </div>
 
-            <div>
-              <button>Edit</button>
-              <button onClick={() => deleteTodo(index)}>Delete</button>
+              <div>
+                {todo?.id === selectedEdit ? (
+                  <button onClick={() => updateTodo()}>Update</button>
+                ) : (
+                  <>
+                    <button onClick={() => editClicked(todo)}>Edit</button>
+                    <button onClick={() => deleteTodo(todo?.id)}>Delete</button>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        );
-      })}
-
-      {/* <div>{test}</div> */}
+          );
+        })
+      ) : (
+        <div className="empty-todos"> Empty Todos </div>
+      )}
     </div>
   );
 };

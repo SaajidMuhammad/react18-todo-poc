@@ -5,11 +5,17 @@ const InputWrapper = ({ setTodos, todos }) => {
   const [todoInput, setTodoInput] = useState("");
 
   const addTodo = () => {
-    let existingTodos = todos;
-    existingTodos.push(todoInput);
-    // console.log(existingTodos, "existingTodos");
-    setTodos(["test", "test1", "test2", "new"]);
-    // setTodos((preState) => [{ ...preState, todoInput }]);
+    if (todoInput !== "") {
+      setTodos((preState) => {
+        const newTodoItem = {
+          id: preState.length + 1,
+          name: todoInput,
+        };
+        return preState.concat(newTodoItem);
+      });
+
+      setTodoInput("");
+    }
   };
 
   return (
@@ -17,10 +23,12 @@ const InputWrapper = ({ setTodos, todos }) => {
       <input
         type="text"
         className="input"
+        value={todoInput}
         onChange={(e) => {
           setTodoInput(e.target.value);
         }}
       />
+
       <button
         className="button"
         onClick={() => {
@@ -29,14 +37,6 @@ const InputWrapper = ({ setTodos, todos }) => {
       >
         Add Todo
       </button>
-      {/* 
-      <button
-        onClick={() => {
-          setTest("update");
-        }}
-      >
-        test
-      </button> */}
     </div>
   );
 };
