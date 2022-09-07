@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { TodoContext } from "../../App";
 import "./InputWrapper.css";
 
-const InputWrapper = ({ setTodos, todos }) => {
+const InputWrapper = () => {
+  const { setTodos, todos } = useContext(TodoContext);
+
   const [todoInput, setTodoInput] = useState("");
 
   const addTodo = () => {

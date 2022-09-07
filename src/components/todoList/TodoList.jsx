@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { TodoContext } from "../../App";
 import "./TodoList.css";
 
-const TodosList = ({ todos, setTodos }) => {
+const TodosList = () => {
+  const { setTodos, todos } = useContext(TodoContext);
+
   const [selectedEdit, setSelectedEdit] = useState(-1);
   const [updatingInput, setUpdatingInput] = useState("");
 
@@ -36,7 +39,7 @@ const TodosList = ({ todos, setTodos }) => {
 
   return (
     <div className="todo-wrapper">
-      {todos.length > 0 ? (
+      {todos?.length > 0 ? (
         todos?.map((todo) => {
           return (
             <div className="single-todo" key={todo?.id}>
