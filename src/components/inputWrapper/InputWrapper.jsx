@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { TodoContext } from "../../App";
+import TodoContext from "../../contexts/todo-context";
 import "./InputWrapper.css";
 
 const InputWrapper = () => {
